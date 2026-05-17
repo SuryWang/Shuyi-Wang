@@ -1,103 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shuyi Wang</title>
+
   <style>
-    body {
-      font-family: Georgia, serif;
-      max-width: 850px;
-      margin: 50px auto;
-      line-height: 1.6;
-      color: #222;
-      padding: 0 20px;
+    :root {
+      --navy: #16324f;
+      --blue: #2f6f9f;
+      --light-blue: #eef6fb;
+      --soft-gray: #f7f8fa;
+      --text: #222;
+      --muted: #666;
+      --border: #e5e8ec;
+      --accent: #9b5c2e;
     }
 
-    h1, h2 {
-      color: #111;
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Georgia", "Times New Roman", serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.65;
     }
 
     a {
-      color: #0645ad;
+      color: var(--blue);
       text-decoration: none;
     }
 
-    .profile-photo {
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      margin: 0 0 20px 0;
+    a:hover {
+      text-decoration: underline;
     }
 
-    .section {
-      margin-top: 35px;
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-name {
+      font-weight: bold;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: #333;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        linear-gradient(rgba(22, 50, 79, 0.72), rgba(22, 50, 79, 0.72)),
+        linear-gradient(135deg, #dcecf6 0%, #f7f3ef 100%);
+      padding: 70px 24px;
+    }
+
+    .hero-card {
+      max-width: 1080px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 24px;
+      padding: 42px;
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 38px;
+      align-items: center;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .profile-photo {
+      width: 190px;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid #ffffff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      color: var(--navy);
+      letter-spacing: 0.5px;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .intro {
+      margin-top: 20px;
+      font-size: 16px;
+      max-width: 760px;
+    }
+
+    .hero-buttons {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 8px 15px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .button.primary {
+      background: var(--navy);
+      color: #ffffff;
+      border-color: var(--navy);
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 42px 24px 70px;
+    }
+
+    section {
+      margin-bottom: 46px;
+    }
+
+    h2 {
+      font-size: 25px;
+      margin-bottom: 20px;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      width: 6px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    h3 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: #1d2935;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    }
+
+    .card.highlight {
+      background: var(--light-blue);
+      border-color: #d5e7f2;
+    }
+
+    ul {
+      margin-top: 8px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 7px;
+    }
+
+    /* Research interests */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      background: var(--soft-gray);
+      border: 1px solid var(--border);
+      color: #333;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+    }
+
+    /* Timeline */
+    .timeline {
+      border-left: 3px solid var(--border);
+      padding-left: 22px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 26px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px 20px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -31px;
+      top: 22px;
+      width: 13px;
+      height: 13px;
+      background: var(--blue);
+      border-radius: 50%;
+      border: 3px solid #ffffff;
+      box-shadow: 0 0 0 1px var(--blue);
+    }
+
+    /* Skills */
+    .skill-row {
+      margin-bottom: 14px;
+    }
+
+    .skill-title {
+      font-weight: bold;
+      color: var(--navy);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      background: var(--soft-gray);
+    }
+
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 32px 24px;
+      }
+
+      .profile-photo {
+        margin: 0 auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 35px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-<img src="profile.jpg" alt="Shuyi Wang" class="profile-photo">
+  <nav class="navbar">
+    <div class="nav-inner">
+      <div class="nav-name">Shuyi Wang</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#conferences">Conferences</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
-<h1>Shuyi Wang</h1>
+  <header class="hero">
+    <div class="hero-card">
+      <div>
+        <img src="profile.jpg" alt="Shuyi Wang" class="profile-photo" />
+      </div>
 
-<p>
-MA Student in Translation Studies<br>
-School of Foreign Studies, Nanjing University<br>
-Email: wangshuyi_2002@163.com
-</p>
+      <div>
+        <h1>Shuyi Wang</h1>
+        <div class="subtitle">
+          MA Student in Translation Studies · Nanjing University
+        </div>
 
-<div class="section">
-  <h2>About</h2>
-  <p>
-    I am an MA student in English Language and Literature, with a focus on Translation Studies, at Nanjing University.
-    My research interests include terminology and translation studies, academic discourse translation, international communication of Chinese scholarship, and sociological approaches to translation.
-  </p>
-</div>
+        <p class="intro">
+          I am an MA student in English Language and Literature, with a focus on Translation Studies, at the School of Foreign Studies, Nanjing University. My research interests include terminology and translation studies, academic discourse translation, international communication of Chinese scholarship, and sociological approaches to translation.
+        </p>
 
-<div class="section">
-  <h2>Research Interests</h2>
-  <ul>
-    <li>Academic discourse translation and international communication</li>
-    <li>Terminology and translation studies</li>
-    <li>Sociological approaches to translation studies</li>
-    <li>Pragmatics of AI-mediated communication</li>
-  </ul>
-</div>
+        <div class="hero-buttons">
+          <a class="button primary" href="mailto:wangshuyi_2002@163.com">Email</a>
+          <a class="button" href="#projects">Research Projects</a>
+          <a class="button" href="#conferences">Presentations</a>
+          <a class="button" href="#cv">CV</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<div class="section">
-  <h2>Research Projects</h2>
-  <ul>
-    <li><strong>Evaluating the International Communication Capacity of China’s Autonomous Academic Discourse System</strong>, Core Research Assistant, Nanjing University.</li>
-    <li><strong>A Research Report on the English Translation of Chinese Shadow Puppetry Terms</strong>, Team Leader.</li>
-    <li><strong>The Accuracy of Interpreting Mandarin Affirmative-Negative Questions in China’s Foreign-Related Trials</strong>, Core Member.</li>
-  </ul>
-</div>
+  <main class="container">
 
-<div class="section">
-  <h2>Conference Presentations & Participation</h2>
-  <ul>
-    <li>The 11th Symposium on Terminology Development in China and the Disciplinary System of Terminology Studies, Anhui University, China, Oct 2025.</li>
-    <li>The 15th “Gewu Zhizhi” Doctoral Academic Innovation Forum, Zhejiang University, China, Oct 2025, Third Prize.</li>
-    <li>The 2nd National Symposium on Discourse Translation, Mediation and Communication, Sichuan International Studies University, China, May 2025.</li>
-  </ul>
-</div>
+    <section id="about">
+      <h2>About</h2>
+      <div class="card highlight">
+        <p>
+          My current research examines the English translations and international circulation of the Chinese sociological term <em>Chaxugeju</em> in academic discourse. I am particularly interested in how Chinese academic terminology is translated, circulated, and received in international scholarly communication.
+        </p>
+        <p>
+          My broader research interests lie at the intersection of terminology studies, translation studies, academic discourse analysis, and international communication.
+        </p>
+      </div>
+    </section>
 
-<div class="section">
-  <h2>CV</h2>
-  <p>
-    CV available upon request.
-  </p>
-</div>
+    <section id="education">
+      <h2>Education</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Nanjing University</h3>
+          <div class="meta">MA in English Language and Literature, Translation Studies · Sep 2024 – Jun 2027</div>
+          <p>
+            Tentative MA thesis: <em>The International Communication of English Translations of the Term Chaxugeju in Academic Discourse: A Comparative Study</em>
+          </p>
+        </div>
 
-<div class="section">
-  <h2>Contact</h2>
-  <p>
-    Email: wangshuyi_2002@163.com
-  </p>
-</div>
+        <div class="card">
+          <h3>Dalian University of Technology</h3>
+          <div class="meta">BA in English Translation · Sep 2020 – Jun 2024</div>
+          <p>
+            BA thesis: <em>A Study on English Translation Strategies of Museum Website Texts from the Perspective of Translation and Communication Studies</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2>Research Interests</h2>
+      <div class="tags">
+        <span class="tag">Academic discourse translation</span>
+        <span class="tag">International communication</span>
+        <span class="tag">Terminology and translation studies</span>
+        <span class="tag">Chinese academic discourse</span>
+        <span class="tag">Sociological approaches to translation</span>
+        <span class="tag">Discourse analysis</span>
+        <span class="tag">AI-mediated communication</span>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Research Projects</h2>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <h3>Evaluating the International Communication Capacity of China’s Autonomous Academic Discourse System</h3>
+          <div class="meta">Core Research Assistant · Nanjing University · Dec 2025 – Present</div>
+          <p>
+            Participated in a major research project on the construction, translation, and international communication of China’s autonomous academic discourse system.
+          </p>
+          <ul>
+            <li>Conducted background research on leading scholars in the humanities and social sciences.</li>
+            <li>Assisted in designing semi-structured interview outlines on terminology, autonomous knowledge systems, and international communication.</li>
+            <li>Hosted and assisted in interviews with young and senior scholars; transcribed recordings and organized qualitative data.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>Terminology and Translation: An Interdisciplinary Research Reader</h3>
+          <div class="meta">Contributing Editor · Nanjing University Press · Forthcoming</div>
+          <p>
+            Contributed to literature selection, thematic organization, and academic text proofreading for an interdisciplinary research reader on terminology and translation studies.
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <h3>A Research Report on the English Translation of Chinese Shadow Puppetry Terms</h3>
+          <div class="meta">Team Leader · Final Research Report for Terminology Translation Course · Sep 2024 – Mar 2025</div>
+          <p>
+            Led a team project on the English translation of Chinese shadow puppetry terms, focusing on terminology translation, intangible cultural heritage, and international cultural communication.
+          </p>
+          <ul>
+            <li>Built a knowledge framework of Chinese shadow puppetry and classified core terms across seven categories.</li>
+            <li>Evaluated existing English renderings based on accuracy, readability, systematicity, transparency, distinctiveness, conciseness, professionalism, and cultural transmission.</li>
+            <li>Summarized translation strategies including transliteration, free translation, contextualized translation, hybrid translation, and system-based compound translation.</li>
+          </ul>
+        </div>
+
+        <div class="timeline-item">
+          <h3>The Accuracy of Interpreting Mandarin Affirmative-Negative Questions in China’s Foreign-Related Trials</h3>
+          <div class="meta">Core Member · DUT Undergraduate Innovation and Entrepreneurship Training Program · Dec 2020 – Apr 2022</div>
+          <p>
+            Conducted empirical research on court interpreting accuracy in foreign-related trials from the perspectives of discourse analysis, sociolinguistics, and pragmatics.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="conferences">
+      <h2>Conference Presentations & Participation</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>The 11th Symposium on Terminology Development in China and the Disciplinary System of Terminology Studies</h3>
+          <div class="meta">Anhui University, China · Oct 2025</div>
+          <p>Theme: Academic terminology translation and international communication.</p>
+        </div>
+
+        <div class="card">
+          <h3>The 15th “Gewu Zhizhi” Doctoral Academic Innovation Forum</h3>
+          <div class="meta">Zhejiang University, China · Oct 2025 · Third Prize</div>
+          <p>Theme: Pragmatics of AI-mediated communication.</p>
+        </div>
+
+        <div class="card">
+          <h3>The 2nd National Symposium on Discourse Translation, Mediation and Communication</h3>
+          <div class="meta">Sichuan International Studies University, China · May 2025</div>
+          <p>Participant.</p>
+        </div>
+
+        <div class="card">
+          <h3>Workshop on Large Language Models and Terminology Compilation 4.0</h3>
+          <div class="meta">Nanjing University, China · Mar 2025</div>
+          <p>Participant.</p>
+        </div>
+
+        <div class="card">
+          <h3>Sven Tarp Workshop: “Lexicography in the New Era”</h3>
+          <div class="meta">Nanjing University, China · Nov 2024</div>
+          <p>Focus: Lexicography, digital intelligence, and human-machine collaboration.</p>
+        </div>
+
+        <div class="card">
+          <h3>Rufus H. Gouws Workshop: “Lexicography in a Multilingual and Multicultural Society”</h3>
+          <div class="meta">Nanjing University, China · Nov 2024</div>
+          <p>Focus: Multilingual lexicography and metalexicography.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Research Skills</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Qualitative Research</h3>
+          <p>Semi-structured interviews; interview transcription; qualitative data organization; discourse analysis; translation criticism.</p>
+        </div>
+
+        <div class="card">
+          <h3>Corpus & Text Analysis</h3>
+          <p>Term extraction and classification; translation variant analysis; co-occurrence analysis; AntConc.</p>
+        </div>
+
+        <div class="card">
+          <h3>Quantitative & Bibliometric Analysis</h3>
+          <p>SPSS; descriptive statistics; questionnaire data cleaning; CiteSpace-based literature mapping.</p>
+        </div>
+
+        <div class="card">
+          <h3>Languages</h3>
+          <p>Chinese: native; English: professional working proficiency; French: basic proficiency.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="cv">
+      <h2>CV</h2>
+      <div class="card">
+        <p>
+          CV available upon request.
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>
+          Email: <a href="mailto:wangshuyi_2002@163.com">wangshuyi_2002@163.com</a>
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Shuyi Wang · Last updated: 2026
+  </footer>
 
 </body>
 </html>
